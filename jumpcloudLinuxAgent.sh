@@ -20,6 +20,8 @@ servername=`hostname`
 
 clear
 
+
+
 ###################
 # start of script #
 ###################
@@ -27,6 +29,16 @@ clear
 echo "####################################################"
 echo "# Jumpcloud Linux agent installation on $servername"
 echo -e "####################################################\n"
+
+
+#Check if connect key is supplied as argument
+if [ $# -eq 0 ]; then
+	echo "No connect-key found!"
+	echo "1) find your key in the Jumpcloud console > Systems > + > Linux"
+	echo "2) re-run this script with the key as argument"
+	exit 1
+fi
+
 mkdir $installdir
 
 #DOWNLOADING AGENT FROM JUMPCLOUD
