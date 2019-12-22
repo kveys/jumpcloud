@@ -20,8 +20,6 @@ servername=`hostname`
 
 clear
 
-
-
 ###################
 # start of script #
 ###################
@@ -34,22 +32,21 @@ echo -e "####################################################\n"
 #Check if connect key is supplied as argument
 if [ $# -eq 0 ]; then
 	echo "No connect-key found!"
-	echo "1) find your key in the Jumpcloud console > Systems > + > Linux"
+	echo "1) retrieve your key in the Jumpcloud console > Systems > + > Linux"
 	echo "2) re-run this script with the key as argument"
 	exit 1
 fi
 
-mkdir $installdir
+if ! [ -d $installdir ]; then
+	mkdir $installdir
+fi
 
 #DOWNLOADING AGENT FROM JUMPCLOUD
 
 echo "1) Downloading the latest installer script."
-#Ask for unique customer key"
-echo "Please type in your Jumploud customer key:"
-read jumpcloudKey
 
 #setting the header
-header="x-connect-key:`echo $jumpcloudKey`"
+header="x-connect-key:`echo $1`"
 
 cd $tmpdir/jumpcloud
 $curl --tlsv1.2 --silent --show-error --header `echo $header` https://kickstart.jumpcloud.com/Kickstart > $installdir/jcagent.sh
