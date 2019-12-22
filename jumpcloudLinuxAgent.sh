@@ -48,7 +48,7 @@ echo "1) Downloading the latest installer script."
 #setting the header
 header="x-connect-key:`echo $1`"
 
-cd $tmpdir/jumpcloud
+cd $installdir
 $curl --tlsv1.2 --silent --show-error --header `echo $header` https://kickstart.jumpcloud.com/Kickstart > $installdir/jcagent.sh
 chmod 755 $installdir/jcagent.sh
 
