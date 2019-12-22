@@ -39,17 +39,17 @@ if [ $# -eq 0 ]; then
 	exit 1
 fi
 
-mkdir $installdir
+if ! [ -d $installdir ]; then
+	mkdir $installdir
+fi
 
 #DOWNLOADING AGENT FROM JUMPCLOUD
 
 echo "1) Downloading the latest installer script."
 #Ask for unique customer key"
-echo "Please type in your Jumploud customer key:"
-read jumpcloudKey
 
 #setting the header
-header="x-connect-key:`echo $jumpcloudKey`"
+header="x-connect-key:`echo $1`"
 
 cd $tmpdir/jumpcloud
 $curl --tlsv1.2 --silent --show-error --header `echo $header` https://kickstart.jumpcloud.com/Kickstart > $installdir/jcagent.sh
